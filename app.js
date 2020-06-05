@@ -13,10 +13,15 @@ switch ( command ) {
     console.log(todo);
     break;
   case 'list':
-    console.log('List TODOS');
+    for (let task of toDo.list()) {
+      console.log('=============TODO============='.green);
+      console.log(`ID: ${task.id} ${task.description}`);
+      console.log(`Status: ${task.complete}`);
+      console.log('=============================='.green);
+    }
     break;
   case 'update':
-    console.log('Update TODO');
+    toDo.update(argv.id, argv.description, argv.complete);
     break;
   default:
     console.log('Comand not found!');

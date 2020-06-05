@@ -1,37 +1,40 @@
-const fs = require('fs');
+const { loadDB } = require('../file-system');
+const { saveDB } = require('../services');
+const { arrayIndexing } = require('../helpers');
 
-const DBName = 'database';
-const listTodo = [];
+let listTodo = [];
+
+const list = () => loadDB(listTodo);
 
 const create = description => {
+  listTodo = loadDB(listTodo);
+
   const toDo = {
+    id: listTodo.length,
     description,
     complete: false
   }
+
   listTodo.push(toDo);
   saveDB(listTodo);
   return `Task saved: ${description}`;
 }
 
-const writeFile = data => {
-  fs.writeFile(`./db/${DBName}.json`, data, error => {
-    if (error) throw error;
-  });
-  return true;
-}
+const update = (id, description, complete = true) => {
+  listTodo = loadDB(listTodo);
+  let task = arrayIndexing(listTodo, 'id')[id];
 
-const saveFs = data => {
-  //if (typeof data != 'object') throw new Error('Data bad format.');
-  if (Object.entries(data).length === 0) throw new Error('Data is empty!');
-  return writeFile(data);
-}
+  if (!task) throw new Error(`Error: ${id} not found.`);
+  description = description ? description : task.description;
 
-const saveDB = listTodo => {
-  const data = JSON.stringify(listTodo);
-  saveFs(data);
+  task = { ...task, description, complete };
+  listTodo[id] = task;
+  saveDB(listTodo);
 }
 
 module.exports = {
-  create
+  create,
+  list,
+  update
 };
 

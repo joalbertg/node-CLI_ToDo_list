@@ -7,6 +7,10 @@ const opts_create = {
 };
 
 const opts_update = {
+  id: {
+    demand: true,
+    desc: 'ID Task'
+  },
   description: {
     demand: false,
     alias: 'd',
