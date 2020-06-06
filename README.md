@@ -15,40 +15,40 @@ docker-compose up
 
 ### Structure
 
-> run `tree -I "node_modules"`
+> run `tree -I "node_modules|screenshots"`
 ```shell
 .
 ├── Dockerfile
 ├── README.md
-├── app.js
-├── config
-│   ├── index.js
-│   └── yargs.js
 ├── db
 │   └── database.json
-├── decorators
-│   ├── index.js
-│   └── list.js
 ├── docker-compose.yml
-├── file-system
-│   ├── file-system.js
-│   └── index.js
-├── helpers
-│   ├── array-indexing.js
-│   └── index.js
 ├── package.json
-├── screenshots
-│   └── todo-list.png
-├── services
-│   ├── index.js
-│   ├── save-db.js
-│   └── save-fs.js
-├── todo
-│   ├── index.js
-│   └── to-do.js
-├── validations
-│   ├── index.js
-│   └── validations.js
+├── src
+│   ├── app.js
+│   ├── config
+│   │   ├── index.js
+│   │   └── yargs.js
+│   ├── decorators
+│   │   ├── index.js
+│   │   └── list.js
+│   ├── helpers
+│   │   ├── array-indexing.js
+│   │   └── index.js
+│   ├── services
+│   │   ├── file-system
+│   │   │   ├── file-system.js
+│   │   │   └── index.js
+│   │   ├── index.js
+│   │   ├── load-db.js
+│   │   ├── save-db.js
+│   │   └── save-fs.js
+│   ├── todo
+│   │   ├── index.js
+│   │   └── to-do.js
+│   └── validations
+│       ├── index.js
+│       └── validations.js
 └── yarn.lock
 
 9 directories, 23 files
@@ -64,23 +64,36 @@ docker-compose up
 
 ### Help
 
-> run `docker-compose run app node app --help`
+> run `docker-compose run app node src/app --help`
 ```shell
 app [command]
 
 Commands:
+  app list    Show task list
   app create  Create an TODO
   app update  Update an TODO, a description and complete
   app delete  Delete an TODO with the done property true
 
 Options:
-  --version  Show version number                         [boolean]
-  --help     Show help                                   [boolean]
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 ```
 
 * command list
 
-> run `docker-compose run app node app list`
+> run `docker-compose run app node src/app list --help`
+```shell
+app list
+
+Show task list
+
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
+  --all, -a  Show all task list                                 [default: false]
+```
+
+> run `docker-compose run app node src/app list`
 ```shell
 =============TODO=============
 ID: 0 Teach RoR true
@@ -94,7 +107,7 @@ ID: 8 Teach React false
 
 * command create
 
-> run `docker-compose run app node app create --help`
+> run `docker-compose run app node src/app create --help`
 ```shell
 app create
 
@@ -106,7 +119,7 @@ Options:
   --description, -d  Description TODO                   [required]
 ```
 
-> run `docker-compose run app node app create -d "Teach React"`
+> run `docker-compose run app node src/app create -d "Teach React"`
 ```shell
 =============TODO=============
 ID: 0 Teach RoR true
@@ -120,7 +133,7 @@ ID: 8 Teach React false
 
 * update command
 
-> run `docker-compose run app node app update --help`
+> run `docker-compose run app node src/app update --help`
 ```shell
 app update
 
@@ -134,7 +147,7 @@ Options:
   --complete, -c     Complete TODO                 [default: true]
 ```
 
-> run `docker-compose run app node app update --id 6`
+> run `docker-compose run app node src/app update --id 6`
 ```shell
 =============TODO=============
 ID: 0 Teach RoR true
@@ -148,7 +161,7 @@ ID: 8 Teach React false
 
 * delete command
 
-> run `docker-compose run app node app delete --help`
+> run `docker-compose run app node src/app delete --help`
 ```shell
 app delete
 
@@ -160,7 +173,7 @@ Options:
   --id       ID Task                                    [required]
 ```
 
-> run `docker-compose run app node app delete --id 7`
+> run `docker-compose run app node src/app delete --id 7`
 ```shell
 =============TODO=============
 ID: 0 Teach RoR true

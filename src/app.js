@@ -4,7 +4,7 @@ const { argv } = require('./config');
 const toDo = require('./todo');
 const { list } = require('./decorators');
 
-//console.log(argv);
+console.log(argv);
 
 let command = argv._[0];
 
@@ -14,7 +14,7 @@ switch ( command ) {
     list(toDo.list());
     break;
   case 'list':
-    list(toDo.list());
+    list(toDo.list(argv.all));
     break;
   case 'update':
     toDo.update(argv.id, argv.description, argv.complete);

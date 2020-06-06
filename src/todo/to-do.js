@@ -3,9 +3,10 @@ const { arrayIndexing } = require('../helpers');
 
 let listTodo = [];
 
-const list = () => {
+const list = show_all => {
   listTodo = loadDB(listTodo);
-  return listTodo.filter(element => !element['done']);
+  console.log(show_all)
+  return show_all ? listTodo : listTodo.filter(element => !element['done']);
 }
 
 const create = description => {
