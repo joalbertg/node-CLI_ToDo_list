@@ -25,5 +25,5 @@ switch ( command ) {
     list(toDo.list());
     break;
   default:
-    console.log('Comand not found!');
+    console.log('Comand not found!'.red);
 }

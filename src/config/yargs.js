@@ -31,6 +31,7 @@ const opts_delete = {
 };
 
 const argv = require('yargs')
+  .command('list', 'Show task list')
   .command('create', 'Create an TODO', opts_create)
   .command('update', 'Update an TODO, a description and complete', opts_update)
   .command('delete', 'Delete an TODO with the done property true', opts_delete)
