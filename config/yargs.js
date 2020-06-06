@@ -23,9 +23,17 @@ const opts_update = {
   }
 };
 
+const opts_delete = {
+  id: {
+    demand: true,
+    desc: 'ID Task'
+  }
+};
+
 const argv = require('yargs')
-  .command('create', 'Create a TODO', opts_create)
-  .command('update', 'Update a TODO, description and complete', opts_update)
+  .command('create', 'Create an TODO', opts_create)
+  .command('update', 'Update an TODO, a description and complete', opts_update)
+  .command('delete', 'Delete an TODO with the done property true', opts_delete)
   .help()
   .argv;
 

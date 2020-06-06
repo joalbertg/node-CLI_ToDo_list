@@ -2,6 +2,7 @@ const colors = require('colors');
 
 const { argv } = require('./config');
 const toDo = require('./todo');
+const { list } = require('./decorators');
 
 //console.log(argv);
 
@@ -10,18 +11,18 @@ let command = argv._[0];
 switch ( command ) {
   case 'create':
     let todo = toDo.create(argv.description);
-    console.log(todo);
+    list(toDo.list());
     break;
   case 'list':
-    for (let task of toDo.list()) {
-      console.log('=============TODO============='.green);
-      console.log(`ID: ${task.id} ${task.description}`);
-      console.log(`Status: ${task.complete}`);
-      console.log('=============================='.green);
-    }
+    list(toDo.list());
     break;
   case 'update':
     toDo.update(argv.id, argv.description, argv.complete);
+    list(toDo.list());
+    break;
+  case 'delete':
+    toDo.remove(argv.id);
+    list(toDo.list());
     break;
   default:
     console.log('Comand not found!');

@@ -4,7 +4,10 @@ const { arrayIndexing } = require('../helpers');
 
 let listTodo = [];
 
-const list = () => loadDB(listTodo);
+const list = () => {
+  listTodo = loadDB(listTodo);
+  return listTodo.filter(element => !element['done']);
+}
 
 const create = description => {
   listTodo = loadDB(listTodo);
@@ -32,9 +35,22 @@ const update = (id, description, complete = true) => {
   saveDB(listTodo);
 }
 
+const remove = id => {
+  listTodo = loadDB(listTodo);
+  const task = arrayIndexing(listTodo, 'id')[id];
+
+  if (task) {
+    task.done = true;
+    listTodo[id] = task;
+    saveDB(listTodo);
+  }
+  return true;
+}
+
 module.exports = {
   create,
   list,
-  update
+  update,
+  remove
 };
 
